@@ -54,6 +54,7 @@ module.exports.upload = async function (req, res) {
         //     data_rows: results.slice(1),
         //   },
         // });
+        console.log("CSV File Uploaded Successfully!")
         return res.redirect('/');
       });
   } catch (err) {
@@ -94,7 +95,7 @@ module.exports.view = async function (req, res) {
         }
       });
     });
-    console.log(fileData);
+    // console.log(fileData);
 
     res.render('csv_view', {
       fileData,
@@ -106,4 +107,21 @@ module.exports.view = async function (req, res) {
     console.error(err);
     res.status(500).send('Internal server error');
   }
+}
+
+module.exports.delete = async function(req, res){
+  const documentProduct = await CSV.findOneAndDelete({ _id: req.params.id });
+  console.log(documentProduct);
+  const oldPath = documentProduct.filename;
+  const newPath = path.join(__dirname,'../uploads', oldPath);
+  fs.unlink(newPath, function (err) {
+    if (err) throw err;
+    // if no error, file has been deleted successfully
+    console.log('File deleted!');
+  });
+  if (!documentProduct) {
+    res.status(500).json(err);
+  } 
+  console.log("CSV File Deleted");
+  res.redirect('/')
 }

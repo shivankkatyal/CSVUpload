@@ -9,6 +9,7 @@ const upload = multer({ dest: 'uploads/'})
 
 router.get('/', homeController.home);
 router.get('/csv/:id', csvController.view);
+router.get('/csv/delete/:id', csvController.delete);
 router.post('/upload', upload.single('csv') ,csvController.upload);
 
 module.exports = router;
