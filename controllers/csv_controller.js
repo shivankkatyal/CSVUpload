@@ -111,7 +111,7 @@ module.exports.view = async function (req, res) {
 
 module.exports.delete = async function(req, res){
   const documentProduct = await CSV.findOneAndDelete({ _id: req.params.id });
-  console.log(documentProduct);
+  // console.log(documentProduct);
   const oldPath = documentProduct.filename;
   const newPath = path.join(__dirname,'../uploads', oldPath);
   fs.unlink(newPath, function (err) {
@@ -122,6 +122,6 @@ module.exports.delete = async function(req, res){
   if (!documentProduct) {
     res.status(500).json(err);
   } 
-  console.log("CSV File Deleted");
+  // console.log("CSV File Deleted");
   res.redirect('/')
 }
