@@ -4,6 +4,7 @@ const app = express();
 const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
 const db = require('./config/mongoose');
+const uri = "mongodb+srv://shivank28011997:Shivank28@cluster0.g73h1pg.mongodb.net/?retryWrites=true&w=majority";
 
 app.use(expressLayouts);
 
